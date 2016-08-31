@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>抽奖</title>
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/swiper_new.css"/>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<style type="text/css">
+		.explain{
+			position: relative;
+			top: 20%;
+			display: block;
+			margin: 0 auto;
+			width: 100px;
+			border-radius: 10px;
+			padding: 5px 10px;
+			text-decoration: none;
+			background-color: #6dd6c5;
+			text-align: center;
+		}
+		#prize{
+			display: none;
+		}
+		#magazine{
+			display: none;
+		}
+		#p5_inner{
+			display: none;
+		}
+		</style>
+	</head>
+	<body>
+		<!-- <div id="loading">
+			<div id="loading_img"><img src="img/loading.gif"/></div>
+		</div> -->
+		
+		<div class="swiper-container">
+        <div class="swiper-wrapper">	
+        	<div class="wrap3 swiper-slide">
+        	<!-- 中奖了，奖品是非电子杂志 -->
+			<div class="p3_inner" id="prize">
+				<p id="prize_inner">恭喜您获得LANDBASE香橙福袋爱海盐味巧克力+香橙手机壳（6/6plus</p><img id='p3_img' src='img/1.jpg'/><div id='con'>请填写个人资料，待提交成功后，我们会尽快将产品寄出。</div><ul><li><span id='p3_font_1'>姓名</span><input type='text' name='name' id='name'></li><li><span id='p3_font_2'>电话</span><input type='text' name='phone' id='phone'></li><li><span id='p3_font_3'>地址</span><input type='text' name='address' id='address'></li></ul><a href='p5.html'><span id='button3'></span></a>
+			</div>
+			<!-- 中奖了，奖品为电子杂志显示这个 -->
+			<div class="p3_inner" id="magazine">
+				<p>恭喜您获得价值98元ELLE数字版免费订阅一年</p><img id='p3_img' src='img/6.jpg'/>
+				<a class="explain" href="p3_3.html">使用说明</a>
+			</div>
+			<!-- 没中奖 -->
+			<div id="p5_inner">
+				<img id="p5_img" src="img/p5_girl.png"/>
+				<!-- <img id="p5_button" src="img/p5_click.png"/> -->
+			</div>
+			<div>
+				
+			</div>
+		</div>
+		
+        	</div>
+        	</div>
+	</body>
+	<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	// 奖品文本
+	var names=["恭喜您获得LANDBASE香橙福袋爱海盐味巧克力+香橙手机壳（6/6plus"
+	,"恭喜您获得Fresh馥蕾诗清酒微醺沐浴露200ml"
+	,"恭喜您获得欧舒丹经典蜡菊活颜组合洁面泡沫50ml + 保湿水30ml"
+	,"恭喜您获得12 Glamour Evil Eyewear设计师眼镜"
+	,"恭喜您获得LANCASTER兰嘉丝汀沁爽运动身体防晒喷雾 SPF30"
+	,"恭喜您获得Bobbie Brown粉饼"
+	,"恭喜您获得Fitbit Flex 智能手环"
+	];
+	var imgs=["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","7.png","8.jpg"];//产生图片数组
+
+	function cbPrize(prize){
+
+		switch (prize.status){
+			case 0://表示没中奖
+				$("#p5_inner").show();
+				break;
+			case 1://为非电子杂志
+				$("#prize_inner").html(names[prize.prizeId]);
+				$("#p3_img").attr("src","img/"+imgs[prize.prizeId]);
+				$("#prize").show();
+				break;
+			case 2://中了电子杂志
+				$("#magazine").show();
+				break;
+		}
+	}
+
+	//请求中奖信息后的回调，参考返回数据
+	var json={
+		// 
+		status:parseInt(Math.random()*3),//中奖的状态0为没中奖，1为非电子杂志，2为中的是电子杂志
+		prizeId:2//可选参数，在status为1的时候返回
+	}
+	cbPrize(json);
+	</script>
+</html>
